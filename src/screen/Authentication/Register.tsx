@@ -11,7 +11,7 @@ import {
 import CheckBox from '@react-native-community/checkbox';
 import { Props } from '@react-native-community/checkbox/dist/CheckBox.android';
 
-function Register({ navigation }: Props): React.JSX.Element {
+function Register({ navigation }: {navigation:any}): React.JSX.Element {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmpass, setconfirmpass] = useState('');

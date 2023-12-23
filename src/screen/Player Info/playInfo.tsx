@@ -9,13 +9,13 @@ import {
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 
-function PlayerInfo({ navigation }: Props): React.JSX.Element {
+function PlayerInfo({navigation}: {navigation: any}): React.JSX.Element {
     const [fistName, setFirstName] = useState("");
     const [middleName, setMiddleName] = useState("");
     const [lastName,setLastName] = useState("");
     const [nickName, setNickName] = useState("");
     const [sportOfInterset, setSportOfInterset] = useState("");
-    const [selectedLanguage, setSelectedLanguage] = useState();
+    const [selectedLanguage, setSelectedLanguage] = useState("");
     return (
         <ScrollView style={styles.container}>
             <View style={styles.page}>

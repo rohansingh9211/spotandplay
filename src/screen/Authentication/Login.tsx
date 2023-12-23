@@ -6,22 +6,35 @@ import {
   ScrollView,
   TouchableOpacity,
   View,
+  Image,
+  Alert,
 } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-function Login({ navigation }: Props): React.JSX.Element {
+function Login({navigation}: {navigation: any}): React.JSX.Element {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [valid, SetValidate] = useState(true);
 
   const handleLogin = () => {
-    // Handle login logic here
     console.log('Username:', username);
     console.log('Password:', password);
-    // Add your authentication logic or API call here
   };
+  const isLogin=()=>{
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailRegex.test(username) && password.length > 8) {
+      navigation.navigate('dashboard')
+    } else {
+      SetValidate(false);
+      setUsername('');
+      setPassword('');
+    }
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.loginPage}>
+        <Image source={require('../../Images/spotandplaylogo.jpg')}  style={{  width: '80%',height: '20%', marginBottom:12}}/>
         <View style={styles.subLogin}>
           <View style={styles.heading}>
             <TouchableOpacity>
@@ -39,7 +52,7 @@ function Login({ navigation }: Props): React.JSX.Element {
           </View>
 
           <View>
-            <Text style={styles.label}>Enter Address</Text>
+            <Text style={[styles.label, { color: valid ? 'white' : 'red' }]}>Enter Address*</Text>
             <TextInput
               style={styles.input}
               placeholder="Username"
@@ -49,11 +62,11 @@ function Login({ navigation }: Props): React.JSX.Element {
           </View>
 
           <View>
-            <Text style={styles.label}>Password</Text>
+            <Text style={[styles.label, { color: valid ? 'white' : 'red' }]}>Password*</Text>
             <TextInput
               style={styles.input}
               placeholder="Password"
-              secureTextEntry
+              secureTextEntry={true}
               value={password}
               onChangeText={(text) => setPassword(text)}
             />
@@ -67,7 +80,7 @@ function Login({ navigation }: Props): React.JSX.Element {
             <TouchableOpacity style={styles.button} onPress={handleLogin}>
               <Text
                 style={styles.buttonText}
-                onPress={() => navigation.navigate('playerinfo')}
+                onPress={() => isLogin()}
               >
                 Submit
               </Text>

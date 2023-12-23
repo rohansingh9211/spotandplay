@@ -24,11 +24,12 @@ import {
 //   LearnMoreLinks,
 //   ReloadInstructions,
 // } from 'react-native/Libraries/NewAppScreen';
-import login from './component/Authentication/Login'
+import login from './src/screen/Authentication/Login'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Register from './component/Authentication/Register';
-import PlayerInfo from './component/Player Info/PlayerInfo'
+import Register from './src/screen/Authentication/Register';
+import PlayerInfo from './src/screen/Player Info/playInfo';
+import Router from './src/screen/Router/Router';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -39,13 +40,7 @@ const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="login" component={login} />
-        <Stack.Screen name="playerinfo" component={PlayerInfo}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Router/>
   );
 }
 
