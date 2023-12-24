@@ -23,7 +23,7 @@ function Login({navigation}: {navigation: any}): React.JSX.Element {
   const isLogin=()=>{
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailRegex.test(username) && password.length > 8) {
-      navigation.navigate('dashboard')
+      navigation.navigate('MainContainer')
     } else {
       SetValidate(false);
       setUsername('');
