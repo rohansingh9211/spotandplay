@@ -34,7 +34,7 @@ function Login({navigation}: {navigation: any}): React.JSX.Element {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.loginPage}>
-        <Image source={require('../../Images/spotandplaylogo.jpg')}  style={{  width: '80%',height: '20%', marginBottom:12}}/>
+        <Image source={require('../../../assets/images/spot.png')} />
         <View style={styles.subLogin}>
           <View style={styles.heading}>
             <TouchableOpacity>

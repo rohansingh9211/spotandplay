@@ -8,10 +8,12 @@ import {
     View,
     Image,
     TouchableHighlight,
+    Alert,
 } from 'react-native';
 import Footer from '../../Component/BottomNavigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+import FacilityList from './FacilityList';
 
 function Dashboard({ navigation }: { navigation: any }): React.JSX.Element {
     const [username, setUsername] = useState('');
@@ -26,6 +28,12 @@ function Dashboard({ navigation }: { navigation: any }): React.JSX.Element {
     };
     const handleItemPress = (item: string | React.SetStateAction<null>) => {
         setSelectedItem(item);
+        return(
+            <View>
+ <FacilityList/>
+            </View>
+           
+        );
     };
 
     return (
