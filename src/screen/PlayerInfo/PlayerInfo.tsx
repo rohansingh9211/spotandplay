@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
     StyleSheet,
     Text,
@@ -8,6 +8,9 @@ import {
     View,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
+import axios from 'axios';
+import { BASE_URL } from '../../../Utils/Index';
+
 
 function PlayerInfo({navigation}: {navigation: any}): React.JSX.Element {
     const [fistName, setFirstName] = useState("");
@@ -16,6 +19,17 @@ function PlayerInfo({navigation}: {navigation: any}): React.JSX.Element {
     const [nickName, setNickName] = useState("");
     const [sportOfInterset, setSportOfInterset] = useState("");
     const [selectedLanguage, setSelectedLanguage] = useState("");
+
+    useEffect(() => {
+        // handleClick();
+      },[]);
+    
+
+    const handleClick = async () => {
+        axios.post(BASE_URL, { loginId:firstName,last_name:lastName,email:email })
+        .then(response => console.log(response.data));
+   };
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.page}>

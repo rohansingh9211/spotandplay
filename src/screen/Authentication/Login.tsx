@@ -43,7 +43,7 @@ function Login({navigation}: {navigation: any}): React.JSX.Element {
                 New User ?{' '}
                 <Text
                   style={{ fontWeight: '600', fontSize: 20, color: 'goldenrod' }}
-                  onPress={() => navigation.navigate('Register')}
+                  onPress={() => navigation.navigate('PlayerInfo')}
                 >
                   Register
                 </Text>

@@ -1,1 +1,1 @@
-export const BASE_URL = "http://localhost:8888/";
+export const BASE_URL = "https://api.de2.spotandplay.com/crrs_customer_service/";
