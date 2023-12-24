@@ -10,6 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import {isLoginUser} from '../../Redux/Action/Useraction'
 
 function Login({navigation}: {navigation: any}): React.JSX.Element {
   const [username, setUsername] = useState('');
@@ -20,10 +21,15 @@ function Login({navigation}: {navigation: any}): React.JSX.Element {
     console.log('Username:', username);
     console.log('Password:', password);
   };
-  const isLogin=()=>{
+  const isLogin=async ()=>{
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailRegex.test(username) && password.length > 8) {
+    if (username.length > 5 &&  password.length > 5) {
+    try {
+      const res = await isLoginUser(username, password);
       navigation.navigate('dashboard')
+    } catch (error) {
+      Alert.alert('Error', 'Invalid username or password');
+    } 
     } else {
       SetValidate(false);
       setUsername('');

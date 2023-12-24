@@ -1,1 +1,1 @@
-export const BASE_URL = "https://api.de2.spotandplay.com/crrs_customer_service/";
+export const BASE_URL = "https://api.de2.spotandplay.com/crrs_admin_service/";

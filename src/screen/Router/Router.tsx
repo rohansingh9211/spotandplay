@@ -19,7 +19,6 @@ const Stack = createNativeStackNavigator();
 
 
 function Router(): React.JSX.Element {
-
   const [showOnboarding, setShowOnboarding] = useState(null);
 useEffect(()=>{
   checkIfAlreadyOnboarded();
