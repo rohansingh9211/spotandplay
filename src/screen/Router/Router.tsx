@@ -9,6 +9,10 @@ import Dashboard from '../Dashboard/Dashboard';
 import OnboardingScreen from '../../screen/onboarding/OnboardingScreen';
 import FacilityList from '../Dashboard/FacilityList';
 import { getItem } from '../../../Utils/asyncStorage';
+import MainContainer from '../Dashboard/MainContainer';
+import HomeScreen from '../Dashboard/HomeScreen';
+import Mybooking from '../Dashboard/Mybooking';
+import Settings from '../Dashboard/Settings';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -20,8 +24,10 @@ const Stack = createNativeStackNavigator();
 
 function Router(): React.JSX.Element {
   const [showOnboarding, setShowOnboarding] = useState(null);
+  const [userLoggedIned,setUserLoggedIned] = useState(false);
 useEffect(()=>{
   checkIfAlreadyOnboarded();
+  // userLoggedIn();
 },[])
 
 const checkIfAlreadyOnboarded = async ()=>{
@@ -34,7 +40,14 @@ const checkIfAlreadyOnboarded = async ()=>{
     setShowOnboarding(true);
   }
 }
-
+// const userLoggedIn=()=>{
+//   try{
+//     const token = await getItem('access_token');
+//     if (token) {
+//       setUserLoggedIned(true)
+//     }
+//   }
+// }
 if(showOnboarding==null){
   return null;
 }
@@ -44,23 +57,33 @@ if(showOnboarding){
     <NavigationContainer>
       <Stack.Navigator initialRouteName='OnboardingScreen'>
         <Stack.Screen name="OnboardingScreen" options={{headerShown: false}} component={OnboardingScreen} />
-        <Stack.Screen name="Login" options={{headerShown: false}} component={Login} />
+        {userLoggedIned ? 
+        <Stack.Screen name="Login" options={{headerShown: false}} component={Login} /> : 
+        <Stack.Screen name='HomeScreen' options={{headerShown: false}} component={HomeScreen}/>}
+
+        {/* <Stack.Screen name="Login" options={{headerShown: false}} component={Login} /> */}
         <Stack.Screen name="Register" options={{headerShown: false}}  component={Register} />
         <Stack.Screen name="PlayerInfo" options={{headerShown: false}}  component={PlayerInfo}/>
-        <Stack.Screen name="dashboard" options={{headerShown: false}}  component={Dashboard}/>
-        <Stack.Screen name='FacilityList' component={FacilityList}/>
+        <Stack.Screen name="MainContainer" options={{headerShown: false}}  component={MainContainer}/>
+        <Stack.Screen name='FacilityList' options={{headerShown: false}} component={FacilityList}/>
+        {/* <Stack.Screen name='HomeScreen' options={{headerShown: false}} component={HomeScreen}/> */}
+        <Stack.Screen name='Mybooking' options={{headerShown: false}} component={Mybooking}/>
+        <Stack.Screen name='Settings' options={{headerShown: false}} component={Settings}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
-}else{
+}else{   
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Login'>
       <Stack.Screen name="login" options={{headerShown: false}}  component={Login} />
-        <Stack.Screen name="Register"   component={Register} />
-        <Stack.Screen name="PlayerInfo"  component={PlayerInfo}/>
-        <Stack.Screen name="dashboard" options={{headerShown: false}}  component={Dashboard}/>
-        <Stack.Screen name='FacilityList' component={FacilityList}/>
+        <Stack.Screen name="Register" options={{headerShown: false}}   component={Register} />
+        <Stack.Screen name="PlayerInfo" options={{headerShown: false}}  component={PlayerInfo}/>
+        <Stack.Screen name="MainContainer"  options={{headerShown: false}}  component={MainContainer}/>
+        <Stack.Screen name='FacilityList' options={{headerShown: false}} component={FacilityList}/>
+        <Stack.Screen name='HomeScreen' options={{headerShown: false}} component={HomeScreen}/>
+        <Stack.Screen name='Mybooking' options={{headerShown: false}} component={Mybooking}/>
+        <Stack.Screen name='Settings' options={{headerShown: false}} component={Settings}/>
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -21,12 +21,11 @@ export default FacilityItem;
 
 const styles = StyleSheet.create({
     container: {
-        width:'100%',
         height:120,
         backgroundColor:'#022D36',
         borderRadius:5,
-        marginTop:8,
-        flex:1
+        margin:5,
+        flex:1,
     },
     subContainer:{
      flexDirection:'row',

@@ -26,7 +26,9 @@ function Login({navigation}: {navigation: any}): React.JSX.Element {
     if (username.length > 5 &&  password.length > 5) {
     try {
       const res = await isLoginUser(username, password);
-      navigation.navigate('dashboard')
+      console.log(res);
+      
+      navigation.navigate('MainContainer')
     } catch (error) {
       Alert.alert('Error', 'Invalid username or password');
     } 
