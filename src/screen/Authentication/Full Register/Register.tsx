@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
     StyleSheet,
     Text,
@@ -10,19 +10,40 @@ import {
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import { Props } from '@react-native-community/checkbox/dist/CheckBox.android';
-
-function Register({ navigation }: {navigation:any}): React.JSX.Element {
-    const [username, setUsername] = useState('');
+interface register {
+    navigation: any,
+    onDataFromChild: (data: any, data2: any) => void
+}
+const Register: React.FC<register> = ({ navigation, onDataFromChild }): React.ReactElement => {
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmpass, setconfirmpass] = useState('');
-    const [isCheckedTna, setCheckedTna] = useState(false);
-    const [isCheckedNews, setCheckedNews] = useState(false);
+    const [isAgreementAggreed, setIsAgreementAggreed] = useState(false);
+    const [isNotifyNewsletters, setIsNotifyNewsletters] = useState(false);
+    // const [loginId,setLoginId] = useState('');
 
     const handleLogin = () => {
-        console.log('Username:', username);
+        console.log('Username:', email);
         console.log('Password:', password);
     };
-
+    const sendValueParent = (data: number) => {
+        // setLoginId(email);
+        const loginId = email
+        console.log(loginId,'loginId  ---');
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(emailRegex.test(email)){
+            if (password === confirmpass && password.length > 8){
+                const response = {
+                    email,password,isAgreementAggreed,isNotifyNewsletters,loginId
+                }
+                onDataFromChild(data,response);
+            }
+        }
+    }
+    // useEffect(() => {
+    //     console.log(loginId,'nknfksfkndk');
+    //   }, [loginId])
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -37,8 +58,8 @@ function Register({ navigation }: {navigation:any}): React.JSX.Element {
                             <TextInput
                                 style={styles.input}
                                 placeholder="Username"
-                                value={username}
-                                onChangeText={(text) => setUsername(text)}
+                                value={email}
+                                onChangeText={(text) => setEmail(text)}
                             />
                         </View>
 
@@ -59,15 +80,15 @@ function Register({ navigation }: {navigation:any}): React.JSX.Element {
                                 style={styles.input}
                                 placeholder="Confirm Password"
                                 secureTextEntry
-                                value={password}
-                                onChangeText={(text) => setPassword(text)}
+                                value={confirmpass}
+                                onChangeText={(text) => setconfirmpass(text)}
                             />
                         </View>
 
                         <View style={styles.SubCheckBox}>
                             <CheckBox
-                                value={isCheckedTna}
-                                onValueChange={(newValue) => setCheckedTna(newValue)}
+                                value={isAgreementAggreed}
+                                onValueChange={(newValue) => setIsAgreementAggreed(newValue)}
                                 tintColors={{ true: '#99bbff', false: 'white' }}
                             />
                             <Text style={styles.checkText}>I agree with Terms & Conditions</Text>
@@ -75,15 +96,15 @@ function Register({ navigation }: {navigation:any}): React.JSX.Element {
 
                         <View style={styles.SubCheckBox}>
                             <CheckBox
-                                value={isCheckedNews}
-                                onValueChange={(newValue) => setCheckedNews(newValue)}
+                                value={isNotifyNewsletters}
+                                onValueChange={(newValue) => setIsNotifyNewsletters(newValue)}
                                 tintColors={{ true: '#99bbff', false: 'white' }}
                             />
                             <Text style={styles.checkText}>I want to receive NewsLetter</Text>
                         </View>
 
                         <View style={styles.buttonContaineer}>
-                            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('login')}>
+                            <TouchableOpacity style={styles.button} onPress={() => sendValueParent(2)}>
                                 <Text style={styles.buttonText}>Next</Text>
                             </TouchableOpacity>
                         </View>

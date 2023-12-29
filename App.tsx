@@ -27,8 +27,8 @@ import {
 import login from './src/screen/Authentication/Login'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Register from './src/screen/Authentication/Register';
-import PlayerInfo from './src/screen/PlayerInfo/PlayerInfo';
+import Register from './src/screen/Authentication/Full Register/Register';
+import PlayerInfo from './src/screen/Authentication/Full Register/PlayerInfo';
 import Router from './src/screen/Router/Router';
 
 type SectionProps = PropsWithChildren<{

@@ -7,6 +7,7 @@ import FacilityList from './FacilityList';
 import HomeScreen from './HomeScreen';
 import Mybooking from './Mybooking';
 import Settings from './Settings';
+import FavouriteScreen from './Favourite'
 
 //Screen names
 const homeName = "Home";
@@ -49,10 +50,10 @@ function MainContainer() {
           style: { padding: 10, height: 70}
         }}>
 
-        <Tab.Screen name={homeName} component={FacilityList} />
-        <Tab.Screen name={favName} component={FacilityList} options={{headerShown:false}}/>
-        <Tab.Screen name={bookingName} component={Mybooking} />
-        <Tab.Screen name={settingsName} component={Settings} />
+        <Tab.Screen name={homeName} component={FacilityList} options={{headerShown:false}}/>
+        <Tab.Screen name={favName} component={FavouriteScreen} options={{headerShown:false}}/>
+        <Tab.Screen name={bookingName} component={Mybooking} options={{headerShown:false}}/>
+        <Tab.Screen name={settingsName} component={Settings} options={{headerShown:false}}/>
 
       </Tab.Navigator>
   );

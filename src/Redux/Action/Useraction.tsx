@@ -12,3 +12,7 @@ export async function isLoginUser(username:string,password:string){
     return response.data;
     
 }
+export async function isRegistered(data:any){
+  const response = await axios.post<string>(`${BASE_URL}/customer/1.0/customer`,{data});
+  return response.status;
+}
