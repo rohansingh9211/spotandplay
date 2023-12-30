@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import CustomHeader from '../../Component/CustomHeader';
 
 export default function Settings({ navigation }) {
     return (
@@ -9,6 +10,7 @@ export default function Settings({ navigation }) {
         //         style={{ fontSize: 26, fontWeight: 'bold' }}>Settings Screen</Text>
         // </View>
         <View style={styles.settingContaineer}>
+        <CustomHeader title="Preferences"/>
             <View style={{ flexDirection: 'row', height: '20%', alignItems: 'center', justifyContent: "center",marginTop:12}}>
                 <View >
                     <Image
@@ -46,6 +48,10 @@ const styles = StyleSheet.create({
     settingContaineer: {
         flex: 1,
         backgroundColor: '#022D36',
+    },
+    containeer: {
+        flex: 1,
+        backgroundColor: '#ffffff',
     },
     subText:{
         color:"white"

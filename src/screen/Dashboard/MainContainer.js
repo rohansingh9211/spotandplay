@@ -49,10 +49,10 @@ function MainContainer() {
           style: { padding: 10, height: 70}
         }}>
 
-        <Tab.Screen name={homeName} component={FacilityList} />
+        <Tab.Screen name={homeName} component={FacilityList} options={{headerShown:false}}/>
         <Tab.Screen name={favName} component={FacilityList} options={{headerShown:false}}/>
-        <Tab.Screen name={bookingName} component={Mybooking} />
-        <Tab.Screen name={settingsName} component={Settings} />
+        <Tab.Screen name={bookingName} component={Mybooking} options={{headerShown:false}}/>
+        <Tab.Screen name={settingsName} component={Settings} options={{headerShown:false}}/>
 
       </Tab.Navigator>
   );
