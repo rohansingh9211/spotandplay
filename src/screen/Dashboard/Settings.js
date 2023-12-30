@@ -1,18 +1,22 @@
 import * as React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
-import CustomHeader from '../../Component/CustomHeader';
+import { View, Text, Image, StyleSheet, Dimensions,TouchableOpacity } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import CustomHeader from '../../Component/CustomHeader'
+
+const { width } = Dimensions.get('window');
+const boxSize = (width - 60) / 2;
 
 export default function Settings({ navigation }) {
+    const detailBox = [
+    { "image": "person-add-outline", "first": "Players", "second": "Details" },
+    { "image": "mail-outline", "first": "Email", "second": "Support" },
+    { "image": "people-outline", "first": "About", "second": "" },
+    { "image": "log-out-outline", "first": "Logout", "second": "" }]
     return (
-        // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        //     <Text
-        //         onPress={() => alert('This is the "Home" screen.')}
-        //         style={{ fontSize: 26, fontWeight: 'bold' }}>Settings Screen</Text>
-        // </View>
         <View style={styles.settingContaineer}>
-        <CustomHeader title="Preferences"/>
-            <View style={{ flexDirection: 'row', height: '20%', alignItems: 'center', justifyContent: "center",marginTop:12}}>
-                <View >
+            <CustomHeader title = "Prefrence" />
+            <View style={{ flexDirection: 'row', height: '20%', alignItems: 'center', justifyContent: "center", marginTop: 20 }}>
+                <View style={{flex:0,justifyContent:"center",alignItems:"center"}} >
                     <Image
                         source={{
                             uri: 'https://images.unsplash.com/photo-1682687981907-170c006e3744?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -21,24 +25,17 @@ export default function Settings({ navigation }) {
                     />
                     <Text style={styles.subText}>Don</Text>
                 </View>
-                    <Text  style={styles.subText}>Change</Text>
+                <Text style={styles.subText}>Change</Text>
             </View>
             <View style={styles.tableContaineer}>
-                <View >
-                    <View style={styles.tableContaineerFirst}>
-                        <Text style={{fontSize:18,fontWeight:800 ,color:"#022D36"}}>20 Dec 23, Wed</Text>
-                    </View>
-                    <View style={styles.tableContaineerFirst}>
-                        <Text>10:00 - 10:30</Text>
-                    </View>
-                </View>
-                <View>
-                    <View style={styles.tableContaineerFirst}>
-                        <Text>Test Facility1014</Text>
-                    </View>
-                    <View style={styles.tableContaineerFirst}>
-                        <Text>Court Booking</Text>
-                    </View>
+                <View style={styles.detailBox}>
+                    {detailBox.map((item, index) => (
+                        <TouchableOpacity style={styles.box} key={index}>
+                            <Ionicons name={item.image} color={'white'} size={30}></Ionicons>
+                            <Text style={styles.textcont}>{item.first}</Text>
+                            <Text style={styles.textcont}>{item.second}</Text>
+                        </TouchableOpacity>
+                    ))}
                 </View>
             </View>
         </View>
@@ -49,11 +46,30 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#022D36',
     },
-    containeer: {
-        flex: 1,
-        backgroundColor: '#ffffff',
+    subText: {
+        color: "white",
+        fontSize:20,
     },
-    subText:{
-        color:"white"
+    detailBox: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+    },
+    box: {
+        width: boxSize,
+        height: boxSize,
+        backgroundColor: "goldenrod",
+        borderRadius: 12,
+        marginTop: 12,
+        flexDirection:"column",
+        justifyContent:"center",
+        alignItems:"center"
+    },
+    textcont:{
+        marginRight:2,
+        fontSize:20,
+        color:"white",
+        fontFamily:"serif"
     }
 })

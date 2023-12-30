@@ -9,14 +9,19 @@ import {
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import axios from 'axios';
-import { BASE_URL } from '../../../Utils/Index';
+import { BASE_URL } from '../../../../Utils/Index';
+interface PlayerInfo{
+    navigation:any,
+    onDataFromChild:(data:any,data2:any)=>void
+}
 
-
-function PlayerInfo({navigation}: {navigation: any}): React.JSX.Element {
+const PlayerInfo:React.FC<PlayerInfo> = ({ navigation, onDataFromChild }): React.ReactElement => {
     const [fistName, setFirstName] = useState("");
     const [middleName, setMiddleName] = useState("");
     const [lastName,setLastName] = useState("");
     const [nickName, setNickName] = useState("");
+    const [dateOfBirth,setDateOfBirth] = useState("");
+    const [gender,setGender] = useState("")
     const [sportOfInterset, setSportOfInterset] = useState("");
     const [selectedLanguage, setSelectedLanguage] = useState("");
 
@@ -24,11 +29,12 @@ function PlayerInfo({navigation}: {navigation: any}): React.JSX.Element {
         // handleClick();
       },[]);
     
-
-    const handleClick = async () => {
-        axios.post(BASE_URL, { loginId:firstName,last_name:lastName,email:email })
-        .then(response => console.log(response.data));
-   };
+    const sendValueParent = (data:number)=>{
+        const playerInfo = {
+            fistName,middleName,lastName,nickName,gender,dateOfBirth
+        }
+        onDataFromChild(data,playerInfo);
+    }
 
     return (
         <ScrollView style={styles.container}>
@@ -71,9 +77,9 @@ function PlayerInfo({navigation}: {navigation: any}): React.JSX.Element {
                         <Text style={styles.label}>Gender</Text>
                         <Picker
                             style={styles.SubInput}
-                            selectedValue={selectedLanguage}
+                            selectedValue={gender}
                             onValueChange={(itemValue, itemIndex) =>
-                                setSelectedLanguage(itemValue)
+                                setGender(itemValue)
                             }>
                             <Picker.Item label="Select Gender" value="" />
                             <Picker.Item label="Male" value="Male" />
@@ -83,7 +89,7 @@ function PlayerInfo({navigation}: {navigation: any}): React.JSX.Element {
                     </View>
                     <View style={styles.containerInput}>
                         <Text style={styles.label}>Date of Birth</Text>
-                        <TextInput style={styles.SubInput} placeholder='YYYY-MM-DD' />
+                        <TextInput style={styles.SubInput} placeholder='YYYY-MM-DD' value={dateOfBirth} onChangeText={(text)=>setDateOfBirth(text)} />
                     </View>
                     <View style={styles.containerInput}>
                         <Text style={styles.label}>Age*</Text>
@@ -107,11 +113,11 @@ function PlayerInfo({navigation}: {navigation: any}): React.JSX.Element {
                     </View>
                 </View>
                 <View style={styles.buttonContaineer}>
-                    <TouchableOpacity style={styles.button} >
-                        <Text style={styles.buttonText} onPress={() => navigation.navigate('login')}>Back</Text>
+                    <TouchableOpacity style={styles.button} onPress={() => sendValueParent(1)}>
+                        <Text style={styles.buttonText} >Back</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.button} >
+                    <TouchableOpacity style={styles.button} onPress={() => sendValueParent(3)}>
                         <Text style={styles.buttonText}>Next</Text>
                     </TouchableOpacity>
                 </View>

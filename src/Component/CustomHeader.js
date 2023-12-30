@@ -10,7 +10,7 @@ const CustomHeader = ({ title }) => {
   };
 
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: 10 }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: 10,backgroundColor:"white", width:'100%'}}>
       <TouchableOpacity onPress={goBack} style={{ position: 'absolute', left: 10 }}>
         {/* <Ionicons name="arrow-back" size={24} color="black" /> */}
       </TouchableOpacity>

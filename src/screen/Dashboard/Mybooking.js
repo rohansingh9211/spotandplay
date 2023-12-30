@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { View, Text,StyleSheet, ScrollView } from 'react-native';
+import CustomHeader from '../../Component/CustomHeader'
 
 export default function Mybooking({ navigation }) {
     return (
         <View style={styles.bookingCont}>
+            <CustomHeader title = "Mybooking" />
             <View style={styles.firstContaineer}>
                 <Text style={styles.textcont}>Show Past bookings</Text>
                 <Text style={styles.textcont}>Check</Text>
@@ -37,6 +39,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#022D36'
     },
     firstContaineer:{
+        marginTop:20,
         flexDirection:"row",
         marginTop:"2%",
         width:"100%",
@@ -57,7 +60,7 @@ const styles = StyleSheet.create({
         justifyContent:'space-around',
         padding:20,
         borderRadius:10,
-        marginTop:10
+        marginTop:20
     },
     tableContaineerFirst:{
         margin:5
