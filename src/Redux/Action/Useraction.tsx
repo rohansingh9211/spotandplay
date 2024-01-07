@@ -14,5 +14,7 @@ export async function isLoginUser(username:string,password:string){
 }
 export async function isRegistered(data:any){
   const response = await axios.post<string>(`${BASE_URL}/customer/1.0/customer`,{data});
+  console.log(response,'-=======');
+  
   return response.status;
 }

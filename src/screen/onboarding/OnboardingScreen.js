@@ -13,7 +13,7 @@ export default function OnboardingScreen() {
 
     const handleDone = () => {
         navigation.navigate('Login');
-        setItem('onboarded', '1');
+        setItem('onboarded', '1');   
     }
 
     const doneButton = ({ ...props }) => {

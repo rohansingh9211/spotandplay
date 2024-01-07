@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
     Text,
@@ -10,11 +10,13 @@ import {
 } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import { Props } from '@react-native-community/checkbox/dist/CheckBox.android';
+import Feather from 'react-native-vector-icons/Feather';
+import LinearGradient from 'react-native-linear-gradient';
+
 interface register {
-    navigation: any,
-    onDataFromChild: (data: any, data2: any) => void
+    onDataFromChild: (data: any) => void
 }
-const Register: React.FC<register> = ({ navigation, onDataFromChild }): React.ReactElement => {
+const Register: React.FC<register> = ({ onDataFromChild }): React.ReactElement => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmpass, setconfirmpass] = useState('');
@@ -29,15 +31,15 @@ const Register: React.FC<register> = ({ navigation, onDataFromChild }): React.Re
     const sendValueParent = (data: number) => {
         // setLoginId(email);
         const loginId = email
-        console.log(loginId,'loginId  ---');
-        
+        console.log(loginId, 'loginId  ---');
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(emailRegex.test(email)){
-            if (password === confirmpass && password.length > 8){
+        if (emailRegex.test(email)) {
+            if (password === confirmpass && password.length > 8) {
                 const response = {
-                    email,password,isAgreementAggreed,isNotifyNewsletters,loginId
+                    email, password, isAgreementAggreed, isNotifyNewsletters, loginId
                 }
-                onDataFromChild(data,response);
+                onDataFromChild(data);
             }
         }
     }
@@ -46,6 +48,7 @@ const Register: React.FC<register> = ({ navigation, onDataFromChild }): React.Re
     //   }, [loginId])
     return (
         <SafeAreaView style={styles.container}>
+            <LinearGradient colors={['rgba(16, 34, 80, 1)', 'rgba(69, 92, 148, 1)', 'rgba(16, 34, 80, 1)']} style={styles.linearGradient}>
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
                 <View style={styles.RegisterPage}>
                     <View style={styles.subRegister}>
@@ -53,36 +56,43 @@ const Register: React.FC<register> = ({ navigation, onDataFromChild }): React.Re
                             <Text style={styles.RegisterHead}>Registration</Text>
                         </View>
 
-                        <View>
+                        <View style={{ marginVertical: 5 }}>
                             <Text style={styles.label}>Enter Address*</Text>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Username"
-                                value={email}
-                                onChangeText={(text) => setEmail(text)}
-                            />
+                            <View style={styles.input}>
+                                <Feather name='user' color={'rgba(0, 0, 0, 0.35)'} size={18}></Feather>
+                                <TextInput style={{ width: "90%" }}
+                                    placeholder="Username"
+                                    value={email}
+                                    onChangeText={(text) => setEmail(text)}
+                                >
+                                </TextInput>
+                            </View>
                         </View>
 
-                        <View>
+                        <View style={{ marginVertical: 5 }}>
                             <Text style={styles.label}>Password*</Text>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Password"
-                                secureTextEntry
-                                value={password}
-                                onChangeText={(text) => setPassword(text)}
-                            />
+                            <View style={styles.input}>
+                                <Feather name='lock' color={'rgba(0, 0, 0, 0.35)'} size={18}></Feather>
+                                <TextInput style={{ width: "90%" }}
+                                    placeholder="Password"
+                                    secureTextEntry
+                                    value={password}
+                                    onChangeText={(text) => setPassword(text)}>
+                                </TextInput>
+                            </View>
                         </View>
 
-                        <View>
+                        <View style={{ marginVertical: 5 }}>
                             <Text style={styles.label}>Confirm Password*</Text>
-                            <TextInput
-                                style={styles.input}
-                                placeholder="Confirm Password"
-                                secureTextEntry
-                                value={confirmpass}
-                                onChangeText={(text) => setconfirmpass(text)}
-                            />
+                            <View style={styles.input}>
+                                <Feather name='lock' color={'rgba(0, 0, 0, 0.35)'} size={18}></Feather>
+                                <TextInput style={{ width: "90%" }}
+                                    placeholder="Confirm Password"
+                                    secureTextEntry
+                                    value={confirmpass}
+                                    onChangeText={(text) => setconfirmpass(text)}>
+                                </TextInput>
+                            </View>
                         </View>
 
                         <View style={styles.SubCheckBox}>
@@ -111,6 +121,7 @@ const Register: React.FC<register> = ({ navigation, onDataFromChild }): React.Re
                     </View>
                 </View>
             </ScrollView>
+            </LinearGradient>
         </SafeAreaView>
     );
 }
@@ -118,57 +129,76 @@ const Register: React.FC<register> = ({ navigation, onDataFromChild }): React.Re
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#00203f',
+        backgroundColor: 'rgba(69, 92, 148, 1)',
     },
     scrollViewContent: {
         flexGrow: 1,
         justifyContent: 'center',
+    },
+    linearGradient: {
+        flex: 1,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 5
     },
     RegisterPage: {
         flex: 1,
         alignItems: 'center',
     },
     RegisterHead: {
-        fontSize: 40,
-        color: 'white',
-        fontFamily: 'inherit',
-        fontWeight: '500'
+        fontSize: 24,
+        color: 'rgba(255, 255, 255, 1)',
+        fontFamily: 'Roboto',
+        fontWeight: '600',
+        lineHeight:28,
     },
     heading: {
-        marginTop: 20,
+        marginVertical: 30,
         display: 'flex',
         alignItems: "center",
         marginBottom: 30,
     },
     label: {
-        fontSize: 20,
-        fontWeight: "500",
-        color: "white"
+        fontFamily: "Roboto",
+        fontWeight: "700",
+        fontSize: 16,
+        lineHeight: 18.75,
+        color: "rgba(255, 255, 255, 1)"
     },
     subRegister: {
-        width: '80%',
+        width: '90%',
     },
     input: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        backgroundColor: 'white',
-        marginBottom: 10,
-        paddingLeft: 10,
-        borderRadius: 5,
+        backgroundColor: "rgba(255, 255, 255, 1)",
+        borderRadius: 20,
+        fontFamily: "Roboto",
+        fontWeight: "400",
+        fontSize: 17.89,
+        lineHeight: 20.96,
+        flexDirection: "row",
+        alignItems: "center",
+        paddingLeft: 4,
+        shadowColor: 'red',
+        elevation: 10,
+        
     },
     buttonContaineer: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 10,
+        marginTop: 20,
     },
     button: {
-        backgroundColor: 'goldenrod',
+        backgroundColor: 'rgba(255, 153, 51, 1)',
         padding: 10,
-        borderRadius: 5,
+        borderRadius: 20,
         alignItems: 'center',
         margin: 12,
-        width: 150, // Set a specific width if needed
+        width: '90%', 
+        shadowColor: 'red',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        elevation: 10,
     },
     buttonText: {
         color: 'white',
@@ -180,9 +210,10 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     checkText: {
-        color: "white",
-        fontSize: 18,
-        fontWeight: '500'
+        color: "rgba(255, 255, 255, 1)",
+        fontSize: 16,
+        fontWeight: '400',
+        fontFamily:'Roboto'
     }
 });
 

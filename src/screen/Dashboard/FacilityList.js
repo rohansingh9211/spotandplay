@@ -4,14 +4,20 @@ import FacilityItem from './FacilityItem';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import CustomHeader from '../../Component/CustomHeader'
+import HomeHeader from '../../Component/HomeHeader'
+import LinearGradient from 'react-native-linear-gradient';
+import gamesData from '../jsondata'
 
 
 function FacilityList() {
   const [selectedItem, setSelectedItem] = useState("Sports");
+  const [isGames, setGames] = useState(false)
 
   const handleItemPress = (item) => {
     setSelectedItem(item);
   };
+  const data =[1,2,3,4,5,6,7,8]
+
   const Item = () => (
     <View >
       <FacilityItem />
@@ -19,51 +25,39 @@ function FacilityList() {
   );
 
 
+
   return (
 
-    <View >
-      <CustomHeader title="Home"/>
-      <View contentContainerStyle={styles.scrollContainer}>
-        <View>
-          <View style={styles.searchSportbody}>
-            <View style={styles.logoImage}>
-              <Image source={require('../../Images/spotandplaylogo.jpg')} style={{ width: '40%', height: '60%', marginBottom: 12 }} />
-              <TouchableOpacity style={{ position: "absolute", right: 12, top: 15 }}>
-                <Ionicons name='log-out-outline' color={'white'} size={30}></Ionicons>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.searchSport}>
-              <TouchableOpacity style={styles.search}>
-                <Ionicons name='search-outline' color={'black'} size={15} style={{ paddingLeft: 5 }} />
-                <TextInput ></TextInput>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Feather name='send' color={'black'} size={20} />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.twoWaysoption}>
-              <TouchableHighlight
-                underlayColor={selectedItem === 'Sports' ? 'goldenrod' : 'transparent'}
-                onPress={() => handleItemPress('Sports')}
-                style={[styles.selectedItem, selectedItem === 'Sports' ? styles.colored : null]}>
-                <Text>Sports</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
-                underlayColor={selectedItem === 'Facilities' ? 'goldenrod' : 'transparent'}
-                onPress={() => handleItemPress('Facilities')}
-                style={[styles.selectedItem, selectedItem === 'Facilities' ? styles.colored : null]}>
-                <Text>Facilities</Text>
-              </TouchableHighlight>
-            </View>
-          </View>
+    <LinearGradient colors={['rgba(16, 34, 80, 1)', 'rgba(69, 92, 148, 1)', 'rgba(16, 34, 80, 1)']} style={styles.linearGradient}>
+      <View style={styles.dashContaineer}>
+        {/* <View style={{ transform: [{ rotate: '-10deg' }],position:"absolute",left:100,top:100}}>
+          <View style={{backgroundColor:"rgba(255, 255, 255, 0.2)", width:"100%",height:25,marginVertical:2}}></View>
+          <View style={{backgroundColor:"rgba(255, 255, 255, 0.2)", width:"100%",height:25,marginVertical:2}}></View>
+          <View style={{backgroundColor:"rgba(255, 255, 255, 0.2)", width:"100%",height:25,marginVertical:2}}></View>
+        </View> */}
+        <HomeHeader />
+
+        { !isGames ? ( 
+        <View style={styles.gamesContaineer}>
+          {gamesData.map((game, index) => (
+            <TouchableOpacity key={index} style={styles.gamesDetail} onPress={()=>setGames(true)}>
+              <Image source={game.image} />
+              <Text style={{ fontSize: 16, color: "rgba(255, 255, 255, 1)", fontWeight: "800" }}>{game.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>):null}
+        
+        {isGames ? (
+        <View style={{width:"90%"}}>
+            <FlatList
+              data={data}
+              renderItem={({ item }) => <Item item={item} />}
+              keyExtractor={item => item.toString()}
+            />
         </View>
+         ) : null}
       </View>
-      <FlatList
-        data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
-        renderItem={Item}
-        keyExtractor={item => item.id}
-      />
-    </View>
+    </LinearGradient>
 
   );
 }
@@ -71,79 +65,26 @@ function FacilityList() {
 export default FacilityList;
 
 const styles = StyleSheet.create({
-  container: {
+  linearGradient: {
     flex: 1,
-    backgroundColor: 'white',
-    marginHorizontal: 16
   },
-  scrollContainer: {
-    flexGrow: 1,
-    backgroundColor: 'white',
-    height: 100,
-
-  },
-
-  logoImage: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: "center",
-    alignContent: "center",
-    height: 70,
-    width: '100%',
-    position: "relative"
-  },
-
-  searchSportbody: {
-    backgroundColor: "#00203f",
-    height: 170,
-    overflow: 'hidden',
-    alignItems: "center",
-    justifyContent: "center",
-    paddingBottom: 12,
-
-  },
-
-  searchSport: {
+  gamesContaineer: {
     width: "90%",
+    marginVertical: 12,
     flexDirection: "row",
-    backgroundColor: "white",
-    alignItems: "center",
-    borderRadius: 12,
-    justifyContent: "space-around"
+    flexWrap: "wrap",
+    flex: 1,
+    gap: 15
   },
-
-  search: {
-    width: "80%",
-    backgroundColor: '#dcdcdc',
-    height: "70%",
-    borderRadius: 12,
-    flexDirection: "row",
+  dashContaineer: {
+    flex: 1,
+    display: "flex",
+    alignItems: "center",
+  },
+  gamesDetail: {
+    width: "30%",
+    height: "40%",
+    justifyContent: "center",
     alignItems: "center"
-  },
-
-  twoWaysoption: {
-    backgroundColor: "white",
-    width: "90%",
-    borderRadius: 12,
-    flexDirection: "row",
-    height: '20%',
-    fontSize: 8,
-    marginTop: 8,
-  },
-
-  selectedItem: {
-    width: "50%",
-    flexDirection: "row",
-    justifyContent: 'center',
-    alignItems: "center",
-    borderRadius: 12,
-  },
-
-  colored: {
-    backgroundColor: "goldenrod",
-    borderWidth: 2,
-    borderColor: 'white'
-  },
-
-
+  }
 })

@@ -3,12 +3,11 @@ import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet } from 
 import Register from "./Register";
 import PlayerInfo from "./PlayerInfo";
 import Contact from "./Contact";
-function RegisterContainer( Props: any): React.JSX.Element {
+function RegisterContainer(): React.JSX.Element {
     const [navigate, setNavigate] = useState(1);
     const [getAllDetail, setGetAllDetail] = useState({});
 
-    const handleDataFromChild1 = (data: number,data2:any) => {
-        setGetAllDetail({...getAllDetail, ...data2});
+    const handleDataFromChild1 = (data: number) => {
         setNavigate(data);
         
       };
@@ -22,7 +21,7 @@ function RegisterContainer( Props: any): React.JSX.Element {
     return (
         <>
             {navigate === 1 && (
-                <Register onDataFromChild={handleDataFromChild1} navigation={undefined}/>
+                <Register onDataFromChild={handleDataFromChild1}/>
             )}
             {navigate === 2 && (
                 <PlayerInfo onDataFromChild={handleDataFromChild2 } navigation={undefined}/>

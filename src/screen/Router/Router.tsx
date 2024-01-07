@@ -5,7 +5,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Register from '../Authentication/Full Register/Register';
 import PlayerInfo from '../Authentication/Full Register/PlayerInfo';
-import Dashboard from '../Dashboard/Dashboard';
 import OnboardingScreen from '../../screen/onboarding/OnboardingScreen';
 import FacilityList from '../Dashboard/FacilityList';
 import { getItem } from '../../../Utils/asyncStorage';
@@ -59,12 +58,9 @@ if(showOnboarding){
     <NavigationContainer>
       <Stack.Navigator initialRouteName='OnboardingScreen'>
         <Stack.Screen name="OnboardingScreen" options={{headerShown: false}} component={OnboardingScreen} />
-        {userLoggedIned ? 
-        <Stack.Screen name="login" options={{headerShown: false}} component={Login} /> : 
-        <Stack.Screen name='HomeScreen' options={{headerShown: false}} component={HomeScreen}/>}
-        <Stack.Screen name="Register" options={{headerShown: false}}  component={Register} />
+        <Stack.Screen name="Login" options={{headerShown: false}} component={Login} />
+        <Stack.Screen name="RegisterContainer" options={{headerShown: false}}   component={RegisterContainer} />
         <Stack.Screen name="Contact" options={{headerShown: false}} component={Contact} />
-        <Stack.Screen name="PlayerInfo" options={{headerShown: false}}  component={PlayerInfo}/>
         <Stack.Screen name="MainContainer" options={{headerShown: false}}  component={MainContainer}/>
         <Stack.Screen name='FacilityList' options={{headerShown: false}} component={FacilityList}/>
         <Stack.Screen name='Mybooking' options={{headerShown: false}} component={Mybooking}/>
@@ -75,12 +71,10 @@ if(showOnboarding){
 }else{   
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='login'>
-      <Stack.Screen name="login" options={{headerShown: false}}  component={Login} />
-        <Stack.Screen name="Register" options={{headerShown: false}}   component={Register} />
+      <Stack.Navigator initialRouteName='Login'>
+      <Stack.Screen name="Login" options={{headerShown: false}}  component={Login} />
         <Stack.Screen name="RegisterContainer" options={{headerShown: false}}   component={RegisterContainer} />
         <Stack.Screen name="Contact" options={{headerShown: false}} component={Contact} />
-        <Stack.Screen name="PlayerInfo" options={{headerShown: false}}  component={PlayerInfo}/>
         <Stack.Screen name="MainContainer"  options={{headerShown: false}}  component={MainContainer}/>
         <Stack.Screen name='FacilityList' options={{headerShown: false}} component={FacilityList}/>
         <Stack.Screen name='HomeScreen' options={{headerShown: false}} component={HomeScreen}/>
