@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, SafeAreaView, FlatList, Image, TouchableOpacity, TouchableHighlight, TextInput } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, SafeAreaView, FlatList, Image, TouchableOpacity, TouchableHighlight, TextInput, Alert } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const HomeHeader = () => {
+
+const HomeHeader = ({navigation}) => {
     const [selectedItem, setSelectedItem] = useState("Sports");
     const [selectKiloMeters, setSelectKiloMeters] = useState(1)
 
@@ -13,12 +15,17 @@ const HomeHeader = () => {
     // const selectKiloMeter = (item) =>{
 
     // }
+    function logoutOurSelf() {
+        AsyncStorage.removeItem('access_token');
+        Alert.alert("Logout Successfully");
+
+    }
     return (
         <View style={styles.searchSportbody}>
             <View style={styles.logoImage}>
                 <Image source={require('../../assets/images/spot.png')} style={{ width: 150, height: 150, position: "absolute", top: 0 }} />
                 <TouchableOpacity style={{ position: "absolute", right: 15, top: 35 }}>
-                    <Ionicons name='log-out-outline' color={'white'} size={30}></Ionicons>
+                    <Ionicons name='log-out-outline' color={'white'} size={30} onPress={logoutOurSelf}></Ionicons>
                 </TouchableOpacity>
             </View>
             <View style={styles.searchSport}>

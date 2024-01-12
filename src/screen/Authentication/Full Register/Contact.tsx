@@ -1,8 +1,14 @@
 import React, { useState,useEffect } from 'react'
-import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet,Alert } from 'react-native';
+import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet,Alert,ActivityIndicator } from 'react-native';
 import { isRegistered } from '../../../Redux/Action/Useraction';
+import { useNavigation } from '@react-navigation/native';
 
-const Contact = (props:any ,{navigation}: {navigation: any}) => {
+interface register {
+    onDataFromChild: (data: any) => void
+}
+const Contact = (props:any,onDataFromChild: any) => {
+    const navigation = useNavigation();
+    const [loading, setLoading] = useState(false);
     // const [address1,setAddress1] = useState('');
     // const [address2,setAddress2] = useState('');
 
@@ -26,7 +32,7 @@ const Contact = (props:any ,{navigation}: {navigation: any}) => {
         }
       });
       const [getPhoneDetail, setGetPhoneDetail] = useState({
-        // Other properties...
+
         customerPhones: [
           {
             phoneNumber: "8197594997",
@@ -41,7 +47,8 @@ const Contact = (props:any ,{navigation}: {navigation: any}) => {
 //   "referingRetailerId": 0,
       
 
-    const RegisterHandle=async ()=>{
+    const RegisterHandle = async ()=>{
+        setLoading(true);
         setManage(prevManage => ({
             ...prevManage,
             ...props.propData,
@@ -51,22 +58,21 @@ const Contact = (props:any ,{navigation}: {navigation: any}) => {
             referingFacilityId: 0,
             referingRetailerId: 0,
           }));
-          
           try {
             const res = await isRegistered(manage);
-            console.log(res,'---------------------------res');
-            
-            if(res == 200){
+            if(res.status == 200){
+                setLoading(false);
                 Alert.alert("Register successfull")
                 navigation.navigate('Login')
             }
           } catch (error) {
+            setLoading(false);
             console.log('error');
           }         
     }
     
     const sendValueParent = (data:number) => {
-        // onDataFromChild(2);
+        onDataFromChild(2);
       };
       useEffect(() => {
         console.log(manage,'---nkdnfkdn');
@@ -74,6 +80,27 @@ const Contact = (props:any ,{navigation}: {navigation: any}) => {
     return (
         <ScrollView style={styles.contactContaineer}>
             <View style={{alignItems:"center"}}>
+            {loading && (
+          <View style={{
+            position: "absolute",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            width: "20%",
+            height: "10%",
+            transform: [{ translateX: 150 }, { translateY: 250 }],
+            left: 0,
+            top: 0,
+            right: 0,
+            bottom: 0,
+            margin: 'auto',
+            justifyContent: "center",
+            zIndex: 1
+          }}>
+            <ActivityIndicator
+              size="large"
+              color="#00ff00"
+            />
+          </View>
+        )}
                 <View style={styles.contactContaineerfirst}>
                     <View style={{alignItems:"center",marginVertical:10}}>
                         <Text style={styles.Heading}>Contact Details</Text>

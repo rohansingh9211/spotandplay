@@ -7,7 +7,8 @@ function RegisterContainer(): React.JSX.Element {
     const [navigate, setNavigate] = useState(1);
     const [getAllDetail, setGetAllDetail] = useState({});
 
-    const handleDataFromChild1 = (data: number) => {
+    const handleDataFromChild1 = (data: number,response:any) => {
+        setGetAllDetail({...getAllDetail, ...response})
         setNavigate(data);
         
       };
@@ -25,7 +26,6 @@ function RegisterContainer(): React.JSX.Element {
             )}
             {navigate === 2 && (
                 <PlayerInfo onDataFromChild={handleDataFromChild2 } navigation={undefined}/>
-                
             )}
             {navigate === 3 && (
                 <Contact propData={getAllDetail} navigation={navigate}/>    

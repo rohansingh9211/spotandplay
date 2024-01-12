@@ -8,6 +8,7 @@ import {
   View,
   Image,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { isLoginUser } from '../../Redux/Action/Useraction'
@@ -19,6 +20,7 @@ function Login({ navigation }: { navigation: any }): React.JSX.Element {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [valid, SetValidate] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = () => {
     console.log('Username:', username);
@@ -27,11 +29,14 @@ function Login({ navigation }: { navigation: any }): React.JSX.Element {
   const isLogin = async () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (username.length > 5 && password.length > 5) {
+      setLoading(true);
       try {
         const res = await isLoginUser(username, password);
+        setLoading(false);
         console.log(res);
         navigation.navigate('MainContainer')
       } catch (error) {
+        setLoading(false);
         Alert.alert('Error', 'Invalid username or password');
       }
     } else {
@@ -42,9 +47,30 @@ function Login({ navigation }: { navigation: any }): React.JSX.Element {
   }
 
   return (
-    <ScrollView style={styles.loginContaineer}>
-      <LinearGradient colors={['rgba(16, 34, 80, 1)', 'rgba(69, 92, 148, 1)', 'rgba(16, 34, 80, 1)']} style={styles.linearGradient}>
+    <LinearGradient colors={['rgba(16, 34, 80, 1)', 'rgba(69, 92, 148, 1)', 'rgba(16, 34, 80, 1)']} style={styles.linearGradient}>
+      <ScrollView style={styles.loginContaineer}>
 
+        {loading && (
+          <View style={{
+            position: "absolute",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            width: "20%",
+            height: "10%",
+            transform: [{ translateX: 150 }, { translateY: 250 }],
+            left: 0,
+            top: 0,
+            right: 0,
+            bottom: 0,
+            margin: 'auto',
+            justifyContent: "center",
+            zIndex: 1
+          }}>
+            <ActivityIndicator
+              size="large"
+              color="#00ff00"
+            />
+          </View>
+        )}
         <View style={styles.childLogin}>
           <View style={styles.secondChildLogin}>
             <Image source={require('../../../assets/images/spot.png')} />
@@ -158,25 +184,23 @@ function Login({ navigation }: { navigation: any }): React.JSX.Element {
             <Image source={require('../../../assets/images/spot.png')} style={{ width: 35, height: 35 }}></Image>
           </View>
         </View>
-      </LinearGradient>
-    </ScrollView>
+      </ScrollView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  loginContaineer: {
-    flex: 1,
-    backgroundColor: "rgba(69, 92, 148, 1)"
-  },
   childLogin: {
     justifyContent: "center",
     alignItems: "center"
   },
   linearGradient: {
     flex: 1,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderRadius: 5
+    // paddingLeft: 15,
+    // paddingRight: 15,
+  },
+  loginContaineer:{
+    flex:1
   },
   secondChildLogin: {
     width: "90%",

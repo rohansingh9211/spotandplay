@@ -14,7 +14,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface register {
-    onDataFromChild: (data: any) => void
+    onDataFromChild: (data: any, response:any) => void
 }
 const Register: React.FC<register> = ({ onDataFromChild }): React.ReactElement => {
     const [email, setEmail] = useState('');
@@ -39,7 +39,7 @@ const Register: React.FC<register> = ({ onDataFromChild }): React.ReactElement =
                 const response = {
                     email, password, isAgreementAggreed, isNotifyNewsletters, loginId
                 }
-                onDataFromChild(data);
+                onDataFromChild(data,response);
             }
         }
     }
@@ -60,7 +60,7 @@ const Register: React.FC<register> = ({ onDataFromChild }): React.ReactElement =
                             <Text style={styles.label}>Enter Address*</Text>
                             <View style={styles.input}>
                                 <Feather name='user' color={'rgba(0, 0, 0, 0.35)'} size={18}></Feather>
-                                <TextInput style={{ width: "90%" }}
+                                <TextInput style={{ width: "90%",color:"rgba(0, 0, 0, 0.35)" }}
                                     placeholder="Username"
                                     value={email}
                                     onChangeText={(text) => setEmail(text)}
@@ -73,7 +73,7 @@ const Register: React.FC<register> = ({ onDataFromChild }): React.ReactElement =
                             <Text style={styles.label}>Password*</Text>
                             <View style={styles.input}>
                                 <Feather name='lock' color={'rgba(0, 0, 0, 0.35)'} size={18}></Feather>
-                                <TextInput style={{ width: "90%" }}
+                                <TextInput style={{ width: "90%",color:"rgba(0, 0, 0, 0.35)" }}
                                     placeholder="Password"
                                     secureTextEntry
                                     value={password}
@@ -86,7 +86,7 @@ const Register: React.FC<register> = ({ onDataFromChild }): React.ReactElement =
                             <Text style={styles.label}>Confirm Password*</Text>
                             <View style={styles.input}>
                                 <Feather name='lock' color={'rgba(0, 0, 0, 0.35)'} size={18}></Feather>
-                                <TextInput style={{ width: "90%" }}
+                                <TextInput style={{ width: "90%",color:"rgba(0, 0, 0, 0.35)" }}
                                     placeholder="Confirm Password"
                                     secureTextEntry
                                     value={confirmpass}
@@ -137,9 +137,9 @@ const styles = StyleSheet.create({
     },
     linearGradient: {
         flex: 1,
-        paddingLeft: 15,
-        paddingRight: 15,
-        borderRadius: 5
+        // paddingLeft: 15,
+        // paddingRight: 15,
+        // borderRadius: 5
     },
     RegisterPage: {
         flex: 1,

@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     flex: 1,
-    gap: 15
+    gap:10,
+    justifyContent:"center"
   },
   dashContaineer: {
     flex: 1,
@@ -83,8 +84,8 @@ const styles = StyleSheet.create({
   },
   gamesDetail: {
     width: "30%",
-    height: "40%",
+    height: "30%",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   }
 })

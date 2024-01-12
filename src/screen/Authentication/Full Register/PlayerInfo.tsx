@@ -16,7 +16,7 @@ interface PlayerInfo{
 }
 
 const PlayerInfo:React.FC<PlayerInfo> = ({ navigation, onDataFromChild }): React.ReactElement => {
-    const [fistName, setFirstName] = useState("");
+    const [firstName, setFirstName] = useState("");
     const [middleName, setMiddleName] = useState("");
     const [lastName,setLastName] = useState("");
     const [nickName, setNickName] = useState("");
@@ -31,7 +31,7 @@ const PlayerInfo:React.FC<PlayerInfo> = ({ navigation, onDataFromChild }): React
     
     const sendValueParent = (data:number)=>{
         const playerInfo = {
-            fistName,middleName,lastName,nickName,gender,dateOfBirth
+            firstName,middleName,lastName,nickName,gender,dateOfBirth
         }
         onDataFromChild(data,playerInfo);
     }
@@ -47,7 +47,7 @@ const PlayerInfo:React.FC<PlayerInfo> = ({ navigation, onDataFromChild }): React
                         <Text style={styles.label}>First Name*</Text>
                         <TextInput style={styles.SubInput}
                         placeholder='First Name'
-                        value={fistName} 
+                        value={firstName} 
                         onChangeText={(text)=>setFirstName(text)} />
                     </View>
                     <View style={styles.containerInput}>
